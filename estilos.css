@@ -1,1 +1,131 @@
+/* Estilos generales y paleta de colores */
+:root {
+    --color-fondo: #f8f9fa;
+    --color-texto: #333;
+    --color-ramo-default: #fdecf2; /* Rosa claro */
+    --color-ramo-hover: #fbcfe8;   /* Rosa medio */
+    --color-ramo-aprobado: #f4a7b9; /* Rosa fuerte */
+    --color-ramo-bloqueado: #e9ecef; /* Gris claro */
+    --color-borde: #e0e0e0;
+    --sombra-caja: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
 
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: var(--color-texto);
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+/* Contenedor principal de la malla */
+.malla-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
+    padding: 20px 0;
+}
+
+/* Columna de cada semestre */
+.semestre {
+    flex: 0 0 180px; /* Ancho fijo para las columnas */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: var(--sombra-caja);
+    border: 1px solid var(--color-borde);
+}
+
+.semestre h2 {
+    font-size: 1.1em;
+    margin-top: 0;
+    color: var(--color-texto);
+    border-bottom: 2px solid var(--color-ramo-default);
+    padding-bottom: 10px;
+}
+
+/* Estilo de cada ramo */
+.ramo {
+    background-color: var(--color-ramo-default);
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--sombra-caja);
+}
+
+.ramo:hover {
+    background-color: var(--color-ramo-hover);
+    transform: translateY(-2px);
+}
+
+/* Estilo para ramos aprobados */
+.ramo.aprobado {
+    background-color: var(--color-ramo-aprobado);
+    color: white;
+    font-weight: 600;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+}
+
+/* Estilo para ramos bloqueados */
+.ramo.bloqueado {
+    background-color: var(--color-ramo-bloqueado);
+    color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Notificaciones */
+.notificacion {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.notificacion.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Diseño responsivo para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .malla-container {
+        justify-content: flex-start; /* Alinea las columnas a la izquierda */
+    }
+    
+    .semestre {
+        flex: 0 0 160px; /* Columnas un poco más angostas */
+    }
+
+    body {
+        padding: 10px;
+    }
+}
