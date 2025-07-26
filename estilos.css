@@ -1,13 +1,19 @@
-/* Estilos generales y paleta de colores */
+/* Estilos generales y paleta de colores MEJORADA */
 :root {
     --color-fondo: #f8f9fa;
-    --color-texto: #333;
-    --color-ramo-default: #fdecf2; /* Rosa claro */
-    --color-ramo-hover: #fbcfe8;   /* Rosa medio */
-    --color-ramo-aprobado: #f4a7b9; /* Rosa fuerte */
-    --color-ramo-bloqueado: #e9ecef; /* Gris claro */
-    --color-borde: #e0e0e0;
-    --sombra-caja: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --color-texto: #1f2937; /* Texto principal más oscuro */
+    
+    /* Paleta de rosas con más contraste */
+    --color-ramo-default: #fbcfe8; /* Rosa más intenso */
+    --color-ramo-hover: #f9a8d4;   /* Rosa medio para hover */
+    --color-ramo-aprobado: #ec4899; /* Rosa fuerte y vibrante */
+    
+    /* Colores para ramos bloqueados */
+    --color-ramo-bloqueado: #e5e7eb; /* Gris medio */
+    --color-texto-bloqueado: #4b5563; /* Texto gris oscuro */
+    
+    --color-borde: #d1d5db;
+    --sombra-caja: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
 body {
@@ -25,72 +31,84 @@ h1 {
 
 header {
     margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Contenedor principal de la malla */
+/* Contenedor principal de la malla (AHORA CON WRAP) */
 .malla-container {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap; /* <<-- CAMBIO CLAVE: Permite que los semestres pasen a la siguiente fila */
     justify-content: center;
-    gap: 10px;
-    overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
-    padding: 20px 0;
+    gap: 15px; /* Espacio entre columnas y filas */
+    padding: 10px;
 }
 
-/* Columna de cada semestre */
+/* Columna de cada semestre (un poco más compacta) */
 .semestre {
-    flex: 0 0 180px; /* Ancho fijo para las columnas */
+    flex: 1 1 170px; /* Permite que crezca pero con una base de 170px */
+    max-width: 180px;
     padding: 15px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: var(--sombra-caja);
     border: 1px solid var(--color-borde);
+    display: flex;
+    flex-direction: column;
 }
 
 .semestre h2 {
-    font-size: 1.1em;
+    font-size: 1.05em;
+    font-weight: 600;
     margin-top: 0;
     color: var(--color-texto);
     border-bottom: 2px solid var(--color-ramo-default);
     padding-bottom: 10px;
 }
 
-/* Estilo de cada ramo */
+/* Estilo de cada ramo (un poco más compacto) */
 .ramo {
     background-color: var(--color-ramo-default);
-    padding: 12px;
-    margin-bottom: 10px;
+    color: var(--color-texto); /* Color de texto por defecto */
+    padding: 10px;
+    margin-top: 10px;
     border-radius: 8px;
-    font-size: 0.85em;
-    min-height: 60px;
+    font-size: 0.8em; /* Fuente ligeramente más pequeña */
+    font-weight: 600;
+    min-height: 55px; /* Altura mínima reducida */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--sombra-caja);
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .ramo:hover {
     background-color: var(--color-ramo-hover);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* Estilo para ramos aprobados */
 .ramo.aprobado {
     background-color: var(--color-ramo-aprobado);
     color: white;
-    font-weight: 600;
     text-decoration: line-through;
+    text-decoration-color: rgba(255, 255, 255, 0.7);
     text-decoration-thickness: 2px;
 }
 
 /* Estilo para ramos bloqueados */
 .ramo.bloqueado {
     background-color: var(--color-ramo-bloqueado);
-    color: #6c757d;
+    color: var(--color-texto-bloqueado);
     cursor: not-allowed;
-    opacity: 0.8;
+    box-shadow: none;
+}
+.ramo.bloqueado:hover {
+    transform: none; /* No hay efecto de hover en ramos bloqueados */
 }
 
 /* Notificaciones */
@@ -99,7 +117,7 @@ header {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #333;
+    background-color: #2c3e50; /* Color de notificación más sobrio */
     color: white;
     padding: 15px 25px;
     border-radius: 8px;
@@ -107,25 +125,11 @@ header {
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s, visibility 0.5s;
+    transition: opacity 0.5s, visibility 0.5s, transform 0.5s;
 }
 
 .notificacion.visible {
     opacity: 1;
     visibility: visible;
-}
-
-/* Diseño responsivo para pantallas más pequeñas */
-@media (max-width: 768px) {
-    .malla-container {
-        justify-content: flex-start; /* Alinea las columnas a la izquierda */
-    }
-    
-    .semestre {
-        flex: 0 0 160px; /* Columnas un poco más angostas */
-    }
-
-    body {
-        padding: 10px;
-    }
+    transform: translateX(-50%) translateY(-10px); /* Pequeño efecto al aparecer */
 }
